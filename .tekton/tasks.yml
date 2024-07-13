@@ -1,3 +1,4 @@
+---
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -5,7 +6,7 @@ metadata:
 spec:
   description: This task will clean up a workspace by deleting all the files.
   workspaces:
-    name: source
+    - name: source
   steps:
     - name: remove
       image: alpine:3
@@ -32,6 +33,7 @@ spec:
           # Delete files and directories starting with .. plus any other character
           rm -rf "${WORKSPACE_SOURCE_PATH}"/..?*
         fi
+
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
@@ -40,7 +42,7 @@ metadata:
 spec:
   description: This task will perform unit testing using nose.
   workspaces:
-    name: source
+    - name: source
   params:
     - name: args
       description: Arguments to pass to nose
